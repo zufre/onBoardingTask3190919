@@ -109,12 +109,18 @@ class SalesList extends React.Component {
     return d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
 }
     render() {
-        if (this.state.customers.length== 0 ||
-            this.state.sales.length == 0 ||
-            this.state.products.length == 0 ||
-            this.state.stores.length == 0) {
-            return <div>loading</div>
-        }else {
+        let stateContent = (this.state.customers.length != 0 &&
+            this.state.sales.length != 0 &&
+            this.state.products.length != 0 &&
+            this.state.stores.length != 0);
+        let mes1 = "Before you can create a Sale Entry Please:";
+        if (this.state.customers.length == 0) {
+            mes2 = "- Please create a Customer";
+        }if(this.state.products ==0){
+            mes3 = "- Please create a Product";
+        }if (this.state.stores > 0) {
+            mes4 = "- Please create a Store"
+        }
             return (
                 <div>
                     <ModalCreate customers={this.state.customers}
@@ -136,14 +142,14 @@ class SalesList extends React.Component {
 
                         <Table.Body>
 
-                            {this.state.sales.map(sale =>
+                            {stateContent ? this.state.sales.map(sale =>
                                 <Table.Row key={sale.Id}>
 
                                     <Table.Cell>{this.state.customers.find(c => c.Id == sale.CustomerId).Name}</Table.Cell>
                                     <Table.Cell>{this.state.products.find(p => p.Id == sale.ProductId).Name}</Table.Cell>
                                     <Table.Cell>{this.state.stores.find(s => s.Id == sale.StoreId).Name}</Table.Cell>
                                     <Table.Cell>{this.transformToDate(sale.DateSold)}</Table.Cell>
-                                    <Table.Cell><ModalEdit fetch={this.fetchData}
+                                    <Table.Cell>< ModalEdit fetch={this.fetchData}
                                         customers={this.state.customers}
                                         products={this.state.products}
                                         stores={this.state.stores}
@@ -154,12 +160,15 @@ class SalesList extends React.Component {
                                         date={sale.DateSold} /></Table.Cell>
                                     <Table.Cell><ModalDelete fetch={this.fetchData} idToDelete={sale.Id} /></Table.Cell>
                                 </Table.Row>
-                            )}
+                            ) : <p style={{ color: 'red' }}>{mes1}</p>
+                                <p style={{ color: 'red' }}>{mes2}</p>
+                                <p style={{ color: 'red' }}>{mes3}</p>
+                                <p style={{ color: 'red' }}>{mes4}</p>}
                         </Table.Body>
                     </Table>
                 </div>
             )
-        }
+        
     }
 
 }

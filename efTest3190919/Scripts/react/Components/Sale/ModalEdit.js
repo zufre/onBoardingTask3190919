@@ -129,7 +129,11 @@ class ModalEdit extends React.Component {
                             <label htmlFor="dateSold">Date sold</label>
                                 <input size='fluid'
                                     type="date"
-                                    id="dateSold" name="dateSold" value={this.props.date} onChange={this.handleDateSoldChange} />
+                                    id="dateSold"
+                                    name="dateSold"
+                                   
+                                    value={this.state.dateSoldSelected}
+                                    onChange={this.handleDateSoldChange} />
                         </div>
 
                         <div className="field">
