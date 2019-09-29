@@ -51,11 +51,7 @@ class ModalEdit extends React.Component {
             .then(() => this.setState({ modalOpen: false }))
             .catch(e => console.log(e));
 
-
-        
     }
-        
-    
     render() {
 
         return (
