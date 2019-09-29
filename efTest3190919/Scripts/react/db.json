@@ -1,0 +1,113 @@
+{
+  "customers": [
+    {
+      "name": "cust1",
+      "address": "addr1",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "cust2",
+      "address": "addr2"
+    },
+    {
+      "id": 3,
+      "name": "cust3",
+      "address": "addr3"
+    },
+    {
+      "name": "cust4",
+      "address": "addr4",
+      "id": 4
+    },
+    {
+      "name": "cust5",
+      "address": "addr4",
+      "id": 5
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "pro1",
+      "price": 1
+    },
+    {
+      "id": 2,
+      "name": "Prod2",
+      "price": 45
+    },
+    {
+      "id": 3,
+      "name": "Prod3",
+      "price": 3
+    },
+    {
+      "id": 4,
+      "name": "Prod4",
+      "price": 4
+    },
+    {
+      "id": 5,
+      "name": "Prod5",
+      "price": "45"
+    }
+  ],
+  "stores": [
+    {
+      "id": 1,
+      "name": "store1",
+      "address": "addr1"
+    },
+    {
+      "id": 2,
+      "name": "store2",
+      "address": "addr2"
+    },
+    {
+      "id": 3,
+      "name": "store3",
+      "address": "addr3"
+    },
+    {
+      "id": 4,
+      "name": "store4",
+      "address": "addr4"
+    },
+    {
+      "id": 5,
+      "name": "store5",
+      "address": "addr5"
+    }
+  ],
+  "sales": [
+    {
+      "id": 1,
+      "productId": 1,
+      "customerId": 4,
+      "storeId": 3,
+      "dateSold": "2019-09-13"
+    },
+    {
+      "id": 2,
+      "productId": 2,
+      "customerId": 1,
+      "storeId": 1,
+      "dateSold": "2019-09-13"
+    },
+    {
+      "id": 3,
+      "productId": 3,
+      "customerId": 2,
+      "storeId": 1,
+      "dateSold": "2019-09-13"
+    },
+    {
+      "id": 4,
+      "dateSold": "2019-09-08",
+      "customerId": 3,
+      "productId": 2,
+      "storeId": 2
+    }
+  ]
+}
