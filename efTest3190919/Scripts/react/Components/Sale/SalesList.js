@@ -109,17 +109,15 @@ class SalesList extends React.Component {
     return d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
 }
     render() {
-        let stateContent = (this.state.customers.length != 0 &&
+        let stateContentCheck = (this.state.customers.length != 0 &&
             this.state.sales.length != 0 &&
             this.state.products.length != 0 &&
             this.state.stores.length != 0);
-        let mes1 = "Before you can create a Sale Entry Please:";
-        if (this.state.customers.length == 0) {
-            mes2 = "- Please create a Customer";
-        }if(this.state.products ==0){
-            mes3 = "- Please create a Product";
-        }if (this.state.stores > 0) {
-            mes4 = "- Please create a Store"
+        let mes;
+        if (this.state.customers.length == 0 ||
+            this.state.products.length == 0 ||
+            this.state.stores.length == 0) {
+             mes = "Before you can create a Sale Entry you need have created at least one Customer, one Product and one Store";
         }
             return (
                 <div>
@@ -128,44 +126,42 @@ class SalesList extends React.Component {
                         stores={this.state.stores}
                         sales={this.state.sales}
                         fetch={this.fetchData} />
-                    <Table className="ui compact selectable table" celled striped>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell >Customer</Table.HeaderCell>
-                                <Table.HeaderCell >Product</Table.HeaderCell>
-                                <Table.HeaderCell >Store</Table.HeaderCell>
-                                <Table.HeaderCell >Date</Table.HeaderCell>
-                                <Table.HeaderCell >Action</Table.HeaderCell>
-                                <Table.HeaderCell >Action</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-
-                        <Table.Body>
-
-                            {stateContent ? this.state.sales.map(sale =>
-                                <Table.Row key={sale.Id}>
-
-                                    <Table.Cell>{this.state.customers.find(c => c.Id == sale.CustomerId).Name}</Table.Cell>
-                                    <Table.Cell>{this.state.products.find(p => p.Id == sale.ProductId).Name}</Table.Cell>
-                                    <Table.Cell>{this.state.stores.find(s => s.Id == sale.StoreId).Name}</Table.Cell>
-                                    <Table.Cell>{this.transformToDate(sale.DateSold)}</Table.Cell>
-                                    <Table.Cell>< ModalEdit fetch={this.fetchData}
-                                        customers={this.state.customers}
-                                        products={this.state.products}
-                                        stores={this.state.stores}
-                                        id={sale.Id}
-                                        customer={sale.CustomerId}
-                                        product={sale.ProductId}
-                                        store={sale.StoreId}
-                                        date={sale.DateSold} /></Table.Cell>
-                                    <Table.Cell><ModalDelete fetch={this.fetchData} idToDelete={sale.Id} /></Table.Cell>
+                    {stateContentCheck ? (
+                        <Table className="ui compact selectable table" celled striped>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell >Customer</Table.HeaderCell>
+                                    <Table.HeaderCell >Product</Table.HeaderCell>
+                                    <Table.HeaderCell >Store</Table.HeaderCell>
+                                    <Table.HeaderCell >Date</Table.HeaderCell>
+                                    <Table.HeaderCell >Action</Table.HeaderCell>
+                                    <Table.HeaderCell >Action</Table.HeaderCell>
                                 </Table.Row>
-                            ) : <p style={{ color: 'red' }}>{mes1}</p>
-                                <p style={{ color: 'red' }}>{mes2}</p>
-                                <p style={{ color: 'red' }}>{mes3}</p>
-                                <p style={{ color: 'red' }}>{mes4}</p>}
-                        </Table.Body>
-                    </Table>
+                            </Table.Header>
+
+                            <Table.Body>
+
+                                {this.state.sales.map(sale =>
+                                    <Table.Row key={sale.Id}>
+
+                                        <Table.Cell>{this.state.customers.find(c => c.Id == sale.CustomerId).Name}</Table.Cell>
+                                        <Table.Cell>{this.state.products.find(p => p.Id == sale.ProductId).Name}</Table.Cell>
+                                        <Table.Cell>{this.state.stores.find(s => s.Id == sale.StoreId).Name}</Table.Cell>
+                                        <Table.Cell>{this.transformToDate(sale.DateSold)}</Table.Cell>
+                                        <Table.Cell>< ModalEdit fetch={this.fetchData}
+                                            customers={this.state.customers}
+                                            products={this.state.products}
+                                            stores={this.state.stores}
+                                            id={sale.Id}
+                                            customer={sale.CustomerId}
+                                            product={sale.ProductId}
+                                            store={sale.StoreId}
+                                            date={sale.DateSold} /></Table.Cell>
+                                        <Table.Cell><ModalDelete fetch={this.fetchData} idToDelete={sale.Id} /></Table.Cell>
+                                    </Table.Row>
+                                )}
+                            </Table.Body>
+                        </Table>) : <div style={{ color: 'red' }}>{mes}</div>}
                 </div>
             )
         
