@@ -53,7 +53,12 @@ class ModalEdit extends React.Component {
     render() {
         return (
             <div>
-                <Modal style={{ position: 'relative', top: '100px', height: '300px' }} open={this.state.modalOpen} trigger={<Button onClick={this.triggerClickHandler} color='yellow' icon ><Icon name='external alternate' /> EDIT</ Button>}  className="ui modal" size='mini' >
+                <Modal style={{ position: 'relative', top: '100px', height: '300px' }}
+                    open={this.state.modalOpen} trigger={<Button
+                        onClick={this.triggerClickHandler}
+                        color='yellow' icon ><Icon name='external alternate' /> EDIT</ Button>}
+                    className="ui modal"
+                    size='tiny' >
                 <Header>Edit Customer</Header>
                 <Modal.Content>
                         <Form className="ui form">
@@ -61,7 +66,7 @@ class ModalEdit extends React.Component {
 
                         <div className="field">
                             <label htmlFor="name">NAME</label>
-                            <input type="text" id="name" name="name" value={this.state.Name} onChange={this.handleNameChange} />
+                            <input fluid type="text" id="name" name="name" value={this.state.Name} onChange={this.handleNameChange} />
                         </div>
                         <div className="field">
                             <label htmlFor="address">ADDRESS</label>

@@ -103,7 +103,7 @@ class SalesList extends React.Component {
                                             customer={sale.CustomerId}
                                             product={sale.ProductId}
                                             store={sale.StoreId}
-                                            date={sale.DateSold} /></Table.Cell>
+                                            date={this.transformToDate(sale.DateSold)} /></Table.Cell>
                                         <Table.Cell><ModalDelete fetch={this.fetchData} idToDelete={sale.Id} /></Table.Cell>
                                     </Table.Row>
                                 )}

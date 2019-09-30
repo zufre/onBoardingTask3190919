@@ -102,13 +102,13 @@ class ModalCreate extends React.Component {
             value: store.Id,
         }))
         return (
-            <Modal style={{ position: 'relative', top: '50px', height: '600px' }}
+            <Modal style={{ position: 'relative', top: '50px', height: '500px' }}
                 open={this.state.modalOpen}
                 className="ui modal"
                 size='tiny'
                 trigger={<Button onClick={this.triggerClickHandler}
                     primary>New Sale</Button>}>
-                <Header>Create Customer</Header>
+                <Header>Create Sale</Header>
                 <Modal.Content>
                     <Form className="ui form">
                         <div className="field">

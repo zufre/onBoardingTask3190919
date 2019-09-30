@@ -49,7 +49,13 @@ class ModalEdit extends React.Component {
     render() {
         return (
            <div>
-                <Modal style={{ position: 'relative', top: '100px', height: '300px' }} open={this.state.modalOpen} trigger={<Button onClick={this.triggerClickHandler} color='yellow' icon ><Icon name='external alternate' /> EDIT</ Button>}  className="ui modal" size='mini' >
+                <Modal style={{ position: 'relative', top: '100px', height: '300px' }}
+                    open={this.state.modalOpen}
+                    trigger={<Button
+                        onClick={this.triggerClickHandler}
+                        color='yellow' icon >
+                        <Icon name='external alternate' /> EDIT</ Button>}
+                    className="ui modal" size='tiny' >
                 <Header>Edit Product</Header>
                 <Modal.Content>
                         <Form className="ui form">

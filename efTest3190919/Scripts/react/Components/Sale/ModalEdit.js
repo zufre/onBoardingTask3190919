@@ -5,6 +5,7 @@ class ModalEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            errorMes:"",
             idSelected:this.props.id,
             dateSoldSelected: this.props.date,
             storeSelected: this.props.store,
@@ -14,8 +15,6 @@ class ModalEdit extends React.Component {
             customers: this.props.customers,
             products: this.props.products,
             stores: this.props.stores
-
-
         }
         this.triggerClickHandler = this.triggerClickHandler.bind(this);
         this.cancelClickHandler = this.cancelClickHandler.bind(this);
@@ -24,23 +23,21 @@ class ModalEdit extends React.Component {
         this.handleCustomerChange = this.handleCustomerChange.bind(this);
         this.handleProductChange = this.handleProductChange.bind(this);
         this.handleStoreChange = this.handleStoreChange.bind(this);
+        this.transformToDate = this.transformToDate.bind(this);
+        this.dateTester = this.dateTester.bind(this);
 
     }
     cancelClickHandler() {
         
         this.setState(() => {
             return {
-                dateSoldSelected: "",
-                customerSelected: null,
-                productSelected: null,
-                storeSelected: null,
+                errorMes:"",
                 modalOpen: false,
                 idSelected: null,
                 customers: [],
                 products: [],
                 stores: []
             };
-            
         });
         this.props.fetch();
     }
@@ -55,7 +52,10 @@ class ModalEdit extends React.Component {
     }
     editClickHandler(e) {
         e.preventDefault;
-        
+        if (!this.dateTester(this.state.dateSoldSelected)) {
+            this.setState({ errorMes: "Please enter a valid Date(DD/MM/YYYY)" });
+            return;
+        }
         let data = {
             Id: this.state.idSelected,
             DateSold: this.state.dateSoldSelected,
@@ -67,13 +67,7 @@ class ModalEdit extends React.Component {
 
             .then(() => console.log(`put request success`))
             .then(() => this.props.fetch())
-            .then(() => this.setState({
-                dateSoldSelected: "",
-                customerSelected: null,
-                productSelected: null,
-                storeSelected: null
-            }))
-            .then(() => this.setState({ modalOpen: false }))
+            .then(() => this.setState({ errorMes: "", modalOpen: false }))
             .catch(e => console.log(e));
     }
     handleCustomerChange(e, data) {
@@ -97,7 +91,14 @@ class ModalEdit extends React.Component {
             return { storeSelected: id };
         });
     }
-
+    transformToDate(miliSeconds) {
+        var d = new Date(parseInt(miliSeconds.toString().slice(6, 19)));
+        return (d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear()).toDate;
+    }
+    dateTester(date) {
+        var patt = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+        return patt.test(date);
+}
     render() {
         const customerOptions = this.props.customers.map(customer => ({
             key: customer.Id,
@@ -126,13 +127,13 @@ class ModalEdit extends React.Component {
                         <Form  className="ui form">
                         <div className="field">
                             <label htmlFor="dateSold">Date sold</label>
-                                <input size='fluid'
-                                    type="date"
+                                <input fluid
+                                    type="text"
                                     id="dateSold"
                                     name="dateSold"
-                                   
                                     value={this.state.dateSoldSelected}
                                     onChange={this.handleDateSoldChange} />
+                                <div style={{ color: 'red' }}>{this.state.errorMes}</div>
                         </div>
                         <div className="field">
                             <label htmlFor="customer">Customer</label>
