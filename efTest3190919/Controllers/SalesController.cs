@@ -19,12 +19,9 @@ namespace efTest3190919.Controllers
             var data = db.Sales.ToList();
             return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         [HttpPost]
-
         public JsonResult Create(Sale sale)
         {
-
             Sale sl = new Sale();
             sl.CustomerId = sale.CustomerId;
             sl.ProductId = sale.ProductId;
@@ -34,22 +31,17 @@ namespace efTest3190919.Controllers
             db.SaveChanges();
             return Json(sale, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public ActionResult Edit([Bind(Include = "Id, ProductId, CustomerId, StoreId, DateSold")] Sale sale)
         {
-
             var sl = db.Sales.Find(sale.Id);
-
             sl.CustomerId = sale.CustomerId;
             sl.ProductId = sale.ProductId;
             sl.StoreId = sale.StoreId;
             sl.DateSold = sale.DateSold;
             db.SaveChanges();
             return Json(sale, JsonRequestBehavior.AllowGet);
-
         }
-        
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -63,7 +55,6 @@ namespace efTest3190919.Controllers
             }
             return View(sale);
         }
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

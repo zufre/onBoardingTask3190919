@@ -14,35 +14,26 @@ namespace efTest3190919.Controllers
     public class StoresController : Controller
     {
         private OnboardingProjectEntities db = new OnboardingProjectEntities();
-
-        
           public ActionResult Index()
           {
               return View();
           }
- 
         public JsonResult GetStores()
         {
             db.Configuration.ProxyCreationEnabled = false;
             var data = db.Stores.ToList();
             return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-      
-
         [HttpPost]
-
         public JsonResult Create(Store store)
         {
-
             Store str = new Store();
             str.Name = store.Name;
             str.Address = store.Address;
-
             db.Stores.Add(str);
             db.SaveChanges();
             return Json(store, JsonRequestBehavior.AllowGet);
         }
-       
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -56,23 +47,15 @@ namespace efTest3190919.Controllers
             }
             return View(store);
         }
-
-       
         [HttpPost]
         public ActionResult Edit([Bind(Include = "Id,Name,Address")] Store store)
         {
-
-
             var str = db.Stores.Find(store.Id);
-
             str.Name = store.Name;
             str.Address = store.Address;
             db.SaveChanges();
             return Json(store, JsonRequestBehavior.AllowGet);
-
-
         }
-     
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

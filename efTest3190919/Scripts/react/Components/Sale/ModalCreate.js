@@ -86,7 +86,6 @@ class ModalCreate extends React.Component {
         });
     }
     render() {
-        
         const customerOptions = this.props.customers.map(customer => ({
             key: customer.Id,
             text: customer.Name,
@@ -157,6 +156,5 @@ class ModalCreate extends React.Component {
             </Modal>
         )
     }
-
 }
 export default ModalCreate;

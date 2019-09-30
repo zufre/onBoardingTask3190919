@@ -2,10 +2,8 @@
 using System.Web.Mvc;
 using efTest3190919.Models;
 
-
 namespace efTest3190919.Controllers
 {
-   
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
@@ -14,14 +12,12 @@ namespace efTest3190919.Controllers
             return View();
         }
         private OnboardingProjectEntities db = new OnboardingProjectEntities();
-   
         public JsonResult GetCustomers()
         {
             db.Configuration.ProxyCreationEnabled = false;
             var data = db.Customers.ToList();
             return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        
         [HttpPost]
          public JsonResult Create(Customer customer)
          {
@@ -33,7 +29,6 @@ namespace efTest3190919.Controllers
              db.SaveChanges();
              return Json(customer, JsonRequestBehavior.AllowGet);
          }
-
         [HttpPost]
         public ActionResult Edit([Bind(Include = "Id,Name,Address")] Customer customer)
         {
@@ -42,11 +37,8 @@ namespace efTest3190919.Controllers
             cust.Address = customer.Address;
             db.SaveChanges();
             return Json(customer, JsonRequestBehavior.AllowGet);
-
         }
-
         [HttpPost, ActionName("Delete")]
-     
         public ActionResult DeleteConfirmed(int id)
         {
             Customer cust = db.Customers.Find(id);

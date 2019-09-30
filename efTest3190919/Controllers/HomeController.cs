@@ -9,8 +9,5 @@ namespace efTest3190919.Controllers
             return Redirect("/Sales");
         }
 
-       
-
-      
     }
 }
