@@ -22,13 +22,14 @@ class ModalDelete extends React.Component {
         });
     }
     deleteHandler() {
-        let id = this.props.idToDelete;  
-        let data = {id: id}
+        let id = this.props.idToDelete;
+        let data = { id: id }
         axios.post('/sales/Delete/', data)
             .then(() => console.log('delete request success'))
-                .then(() => this.props.fetch())
-                .then(() => this.setState({ modalOpen: false }))
-                .catch(e => console.log(e));
+            .then(() => this.props.fetch())
+            .then(() => this.setState({ modalOpen: false }))
+            .catch(e => console.log(e));
+    }
     render() {
         return (
             <div>
