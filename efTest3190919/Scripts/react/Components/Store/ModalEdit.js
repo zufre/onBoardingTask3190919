@@ -5,6 +5,7 @@ class ModalEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            errorMessage: "",
             modalOpen: false, 
             id: this.props.idToEdit,
             Name: this.props.name,
@@ -34,13 +35,16 @@ class ModalEdit extends React.Component {
     }
     editClickHandler(e) {
         e.preventDefault;
-       
+        if (this.state.Name == "" || this.state.Address == "") {
+            this.setState({ errorMessage: "All fields must be filled out" });
+            return;
+        }
         let data = { Id: this.state.id, Name: this.state.Name, Address: this.state.Address }
         axios.post('/Stores/Edit/', data)
 
             .then(() => console.log(`put request success`))
             .then(() => this.props.fetch())
-            .then(() => this.setState({ modalOpen: false }))
+            .then(() => this.setState({ errorMessage: "", modalOpen: false }))
             .catch(e => console.log(e));
 
 
@@ -52,7 +56,8 @@ class ModalEdit extends React.Component {
                 <Modal style={{ position: 'relative', top: '100px', height: '300px' }} open={this.state.modalOpen} trigger={<Button onClick={this.triggerClickHandler} color='yellow' icon ><Icon name='external alternate' /> EDIT</ Button>}  className="ui modal" size='mini' >
                 <Header>Edit Store</Header>
                 <Modal.Content>
-                        <Form  className="ui form">
+                        <Form className="ui form">
+                        <div style={{ color: 'red' }}>{this.state.errorMessage}</div>
                         <div className="field">
                             <label htmlFor="name">NAME</label>
                                 <input type="text" id="name" name="name" value={this.state.Name} onChange={this.handleNameChange} />

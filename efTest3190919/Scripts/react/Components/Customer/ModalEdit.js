@@ -48,7 +48,7 @@ class ModalEdit extends React.Component {
             
             .then(() => console.log(`put request success`))
             .then(() => this.props.fetch())
-            .then(() => this.setState({ modalOpen: false }))
+            .then(() => this.setState({ errorMessage: "", modalOpen: false }))
             .catch(e => console.log(e));
 
     }

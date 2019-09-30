@@ -5,6 +5,7 @@ class ModalCreate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+                errorMessage: "",
                 modalOpen: false, 
                 Name: '',
                 Address: ''     
@@ -35,13 +36,17 @@ class ModalCreate extends React.Component {
         this.setState({ Address: e.target.value });
     }
     createClickHandler(e) {
+        if (this.state.Name == "" || this.state.Address == "") {
+            this.setState({ errorMessage: "All fields must be filled out" });
+            return;
+        }
         e.preventDefault;
         let data = { Name: this.state.Name, Address: this.state.Address }
         axios.post('/Stores/Create', data)
             .then(() => console.log(`post request success`))
             .then(() => this.props.fetch())
             .then(() => this.setState({ Name: "", Address: "" }))
-            .then(() => this.setState({ modalOpen: false }))
+            .then(() => this.setState({ errorMessage: "", modalOpen: false }))
             .catch(e => console.log(e))
     }
   
@@ -52,6 +57,7 @@ class ModalCreate extends React.Component {
             <Header>Create Store</Header>
              
                 <Modal.Content>
+                    <div style={{ color: 'red' }}>{this.state.errorMessage}</div>
                     <Form onSubmit={this.createClickHandler} className="ui form">
                         <div className="field">
                             <label htmlFor="name">NAME</label>

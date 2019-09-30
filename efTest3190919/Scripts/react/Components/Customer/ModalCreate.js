@@ -49,7 +49,7 @@ class ModalCreate extends React.Component {
             .then(() => console.log(`post request success`))
             .then(() => this.props.fetch())
             .then(() => this.setState({ Name: "", Address: "" }))
-            .then(() => this.setState({ modalOpen: false }))
+            .then(() => this.setState({ errorMessage: "", modalOpen: false }))
             .catch(e => console.log(e))
     }
 

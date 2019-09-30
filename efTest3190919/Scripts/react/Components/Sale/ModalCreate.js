@@ -52,7 +52,7 @@ class ModalCreate extends React.Component {
                 productSelected: null,
                 storeSelected: null
             }))
-            .then(() => this.setState({ modalOpen: false }))
+            .then(() => this.setState({  modalOpen: false }))
             .catch(e => console.log(e))
     }
 

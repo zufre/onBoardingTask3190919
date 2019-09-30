@@ -7,6 +7,7 @@ class ModalDelete extends React.Component {
         super(props);
         this.state = {
             modalOpen: false,
+            errorMessage: ""
         };
         
         this.cancelClickHandler = this.cancelClickHandler.bind(this);
@@ -30,7 +31,8 @@ class ModalDelete extends React.Component {
             .then(() => console.log('delete request success'))
             .then(() => this.props.fetch())
             .then(() => this.setState({ modalOpen: false }))
-            .catch(e => console.log(e));
+            .catch(() => this.setState({ errorMessage: "Sorry, this entry cannot be deleted, it is probably connected to a Sale entry." }));
+
     }
     render() {
 
