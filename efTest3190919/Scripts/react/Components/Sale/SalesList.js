@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import ReactDOM from 'react-dom';
 import ModalCreate from './ModalCreate';
 import ModalDelete from './ModalDelete';
 import ModalEdit from './ModalEdit';
@@ -26,52 +25,7 @@ class SalesList extends React.Component {
         this.fetchData()
         
     }
-      /*  axios.get('Customers/GetCustomers/')
-            .then((res) => {
-                const customers = res.data;
-                this.setState({ customers });
-                console.log('get c request success');
-                this.setState({ customers: res })
-                axios.get('Stores/GetStores/')
-                    .then((res) => {
-                        const stores = res.data;
-                        this.setState({ stores });
-                        console.log('get st request success')
-                        this.setState({ stores: res });
-                         axios.get('Products/GetProducts')
-                            .then((res) => {
-                                const products = res.data;
-                                this.setState({ products });
-                                console.log('get p request success')
-                                this.setState({ products: res });
-                                axios.get('Sales/GetSales')
-                                    .then((res) => {
-                                        const sales = res.data;
-                                        this.setState({ sales });
-                                        console.log('get sa request success')
-
-
-                                    })
-                            })
-                    })
-
-            })        
-            axios.all([
-              axios.get('/Stores/GetStores'),
-              axios.get('/Customers/GetCustomers'),
-              axios.get('/Products/GetProducts'),
-             axios.get('Sales/GetSales')
-          ])
-              .then(axios.spread((customers, stores, products, sales) => {
-                  this.setState({ customers, stores, products, sales })
-                      .then(() => console.log('get req success'))
-                  .catch((e)=> console.log(e))
-              }));*/
-      
-        
    
-              
-     
     fetchData() {
 
         axios.get('/Sales/GetSales')
@@ -172,7 +126,3 @@ class SalesList extends React.Component {
 
 export default SalesList;
 
-/*ReactDOM.render(
-    <SalesList />,
-    document.getElementById('sale')
-);*/

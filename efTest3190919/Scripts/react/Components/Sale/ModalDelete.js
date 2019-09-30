@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import { Button, Header, Modal, Icon } from 'semantic-ui-react';
-
 import axios from 'axios';
 class ModalDelete extends React.Component {
     constructor(props) {

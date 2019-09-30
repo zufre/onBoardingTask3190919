@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import ReactDOM from 'react-dom';
 import ModalCreate from './ModalCreate';
 import ModalDelete from './ModalDelete';
 import ModalEdit from './ModalEdit';
@@ -73,8 +72,3 @@ class ProductList extends React.Component {
 
 export default ProductList;
 
-/*
-ReactDOM.render(
-    <ProductList />,
-    document.getElementById('product')
-);*/
