@@ -15,27 +15,12 @@ namespace efTest3190919.Controllers
     {
         private OnboardingProjectEntities db = new OnboardingProjectEntities();
 
-        /*  // GET: Stores
+        
           public ActionResult Index()
           {
-              return View(db.Stores.ToList());
+              return View();
           }
-  */
-        /* // GET: Stores/Details/5
-         public ActionResult Details(int? id)
-         {
-             if (id == null)
-             {
-                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-             }
-             Store store = db.Stores.Find(id);
-             if (store == null)
-             {
-                 return HttpNotFound();
-             }
-             return View(store);
-         }*/
-        // GET: Customers/GetCustomers
+ 
         public JsonResult GetStores()
         {
             db.Configuration.ProxyCreationEnabled = false;

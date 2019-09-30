@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import ReactDOM from 'react-dom';
 import ModalCreate from './ModalCreate';
 import ModalDelete from './ModalDelete';
 import ModalEdit from './ModalEdit';
@@ -170,3 +171,8 @@ class SalesList extends React.Component {
 }
 
 export default SalesList;
+
+/*ReactDOM.render(
+    <SalesList />,
+    document.getElementById('sale')
+);*/

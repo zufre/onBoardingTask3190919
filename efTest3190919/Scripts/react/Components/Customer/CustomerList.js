@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import ReactDOM from 'react-dom';
 import ModalCreate from './ModalCreate';
 import ModalDelete from './ModalDelete';
 import ModalEdit from './ModalEdit';
@@ -17,13 +18,7 @@ class CustomerList extends React.Component {
     }
     componentDidMount() {
         this.fetchData();
-      /*  axios.get('/Customers/GetCustomers')
-            .then(res => {
-                const customers = res.data;
-                this.setState({ customers });
-                console.log('get request success')
-            })
-            .catch((e) => console.log(e))*/
+    
     }
   
     fetchData() {
@@ -70,3 +65,9 @@ class CustomerList extends React.Component {
 }
 
 export default CustomerList;
+
+
+/*ReactDOM.render(
+    <CustomerList />,
+    document.getElementById('customer')
+);*/

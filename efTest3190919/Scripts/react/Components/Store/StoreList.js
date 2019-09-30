@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import ReactDOM from 'react';
 import ModalCreate from './ModalCreate';
 import ModalDelete from './ModalDelete';
 import ModalEdit from './ModalEdit';
@@ -66,3 +67,8 @@ class StoreList extends React.Component {
 }
 
 export default StoreList;
+
+/*ReactDOM.render(
+    <StoreList />,
+    document.getElementById('store')
+);*/

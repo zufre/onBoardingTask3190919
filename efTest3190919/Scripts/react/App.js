@@ -4,8 +4,40 @@ import CustomerList from './Components/Customer/CustomerList';
 import SalesList from './Components/Sale/SalesList';
 import ProductList from './Components/Product/ProductList';
 import StoreList from './Components/Store/StoreList';
-import { Link, BrowserRouter as Router, Route  } from 'react-router-dom';
-class App extends React.Component {
+import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
+
+
+if (window.location.pathname === '/') {
+    ReactDOM.render(
+        <SalesList />,
+        document.getElementById('sale')
+    );
+}
+if (window.location.pathname === '/Sales') {
+    ReactDOM.render(
+        <SalesList />,
+        document.getElementById('sale')
+    );
+}
+else if (window.location.pathname === '/Products') {
+    ReactDOM.render(
+        <ProductList />,
+        document.getElementById('product')
+    );
+}
+else if (window.location.pathname === '/Customers') {
+    ReactDOM.render(
+        <CustomerList />,
+        document.getElementById('customer')
+    );
+}
+else if (window.location.pathname === '/Stores') {
+    ReactDOM.render(
+        <StoreList />,
+        document.getElementById('store')
+    );  
+}
+/*class App extends React.Component {
 
     render() {
         return (
@@ -29,4 +61,4 @@ export default App;
 ReactDOM.render(
     <App />,
     document.getElementById('root')
-);
+);*/
