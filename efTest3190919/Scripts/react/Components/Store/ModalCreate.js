@@ -16,13 +16,11 @@ class ModalCreate extends React.Component {
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
     }
-
     triggerClickHandler()  {
         this.setState(() => {
             return { modalOpen: true };     
         });
     }
-
     cancelClickHandler() {
         this.setState(() => {
             return { Name: "", Address: "" , modalOpen: false };
@@ -49,13 +47,11 @@ class ModalCreate extends React.Component {
             .then(() => this.setState({ errorMessage: "", modalOpen: false }))
             .catch(e => console.log(e))
     }
-  
     render() {
         return (
             
             <Modal style={{position:'relative', top: '100px', height: '300px'}}   open={this.state.modalOpen} className="ui modal" size='tiny' trigger={<Button onClick={this.triggerClickHandler} primary>New Store</Button>}>
             <Header>Create Store</Header>
-             
                 <Modal.Content>
                     <div style={{ color: 'red' }}>{this.state.errorMessage}</div>
                     <Form onSubmit={this.createClickHandler} className="ui form">
@@ -73,12 +69,10 @@ class ModalCreate extends React.Component {
                             <Button  type="submit"  color='teal' icon >create  <Icon name='checkmark' /> </Button>
                         </ Modal.Actions>
                     </Form>
-
                 </Modal.Content>    
             </Modal>
         )
     }
-   
 }
 
 export default ModalCreate;

@@ -99,7 +99,6 @@ class ModalEdit extends React.Component {
     }
 
     render() {
-
         const customerOptions = this.props.customers.map(customer => ({
             key: customer.Id,
             text: customer.Name,
@@ -135,7 +134,6 @@ class ModalEdit extends React.Component {
                                     value={this.state.dateSoldSelected}
                                     onChange={this.handleDateSoldChange} />
                         </div>
-
                         <div className="field">
                             <label htmlFor="customer">Customer</label>
                                 <Dropdown id="customer"
@@ -146,7 +144,6 @@ class ModalEdit extends React.Component {
                                     placeholder='Customer'
                                     options={customerOptions} />
                         </div>
-
                         <div className="field">
                             <label htmlFor="product">Product</label>
                                 <Dropdown id="product"
@@ -157,7 +154,6 @@ class ModalEdit extends React.Component {
                                     placeholder='Product'
                                     options={productOptions} />
                         </div>
-
                         <div className="field">
                             <label htmlFor="store">Store</label>
                                 <Dropdown id="store"
@@ -168,7 +164,6 @@ class ModalEdit extends React.Component {
                                     placeholder='Store'
                                     options={storeOptions} />
                         </div>
-
                             <Modal.Actions style={{ float: 'right' }} >
                                 <Button color='black' content="cancel" onClick={this.cancelClickHandler} />
                                 <Button onClick={this.editClickHandler} positive type="submit" icon >edit  <Icon name='checkmark' /> </Button>

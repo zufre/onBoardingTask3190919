@@ -5,7 +5,6 @@ import ModalEdit from './ModalEdit';
 import {  Table } from 'semantic-ui-react';
 import axios from 'axios';
 
-
 class SalesList extends React.Component {
     constructor(props) {
         super(props);
@@ -15,19 +14,14 @@ class SalesList extends React.Component {
             products: [],
             stores: [],
             sales: []
-
         }
         this.fetchData = this.fetchData.bind(this);
         this.transformToDate = this.transformToDate.bind(this);
-       
     }
     componentDidMount() {
         this.fetchData()
-        
     }
-   
     fetchData() {
-
         axios.get('/Sales/GetSales')
             .then(res => {
                 const sales = res.data;
@@ -93,9 +87,7 @@ class SalesList extends React.Component {
                                     <Table.HeaderCell >Action</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
-
                             <Table.Body>
-
                                 {this.state.sales.map(sale =>
                                     <Table.Row key={sale.Id}>
 

@@ -5,13 +5,11 @@ import ModalEdit from './ModalEdit';
 import { Table} from 'semantic-ui-react';
 import axios from 'axios';
 
-
 class StoreList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stores: [ ]
-           
+            stores: []
         };
         this.fetchData = this.fetchData.bind(this);
     }
@@ -46,7 +44,6 @@ class StoreList extends React.Component {
                             <Table.HeaderCell >Action</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-
                     <Table.Body>
                         {this.state.stores.map(store =>
                             <Table.Row key={store.Id}>
@@ -58,7 +55,6 @@ class StoreList extends React.Component {
                         )} 
                     </Table.Body>
                 </Table>
-          
             </div>
         )
     }

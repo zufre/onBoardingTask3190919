@@ -1,11 +1,9 @@
 ﻿import React from 'react';
-
 import ModalCreate from './ModalCreate';
 import ModalDelete from './ModalDelete';
 import ModalEdit from './ModalEdit';
 import { Table } from 'semantic-ui-react';
 import axios from 'axios';
-
 
 class CustomerList extends React.Component {
     constructor(props) {
@@ -14,13 +12,10 @@ class CustomerList extends React.Component {
             customers: [],
         };
         this.fetchData = this.fetchData.bind(this);
-        
     }
     componentDidMount() {
         this.fetchData();
-    
     }
-  
     fetchData() {
         axios.get('/Customers/GetCustomers')
             .then(res => {
@@ -28,11 +23,9 @@ class CustomerList extends React.Component {
                 this.setState({ customers });
                 console.log('get request success')
             })
-
             .catch((e) => console.log(e))
     }
-    render() {
-       
+    render() { 
         return (
             <div>
                 <ModalCreate fetch={this.fetchData}/> 
@@ -45,7 +38,6 @@ class CustomerList extends React.Component {
                             <Table.HeaderCell >Action</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-
                     <Table.Body>
                         {this.state.customers.map(customer =>
                             <Table.Row key={customer.Id}>
@@ -57,7 +49,6 @@ class CustomerList extends React.Component {
                         )} 
                     </Table.Body>
                 </Table>
-          
             </div>
         )
     }

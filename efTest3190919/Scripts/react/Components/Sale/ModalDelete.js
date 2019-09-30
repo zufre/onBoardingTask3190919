@@ -5,10 +5,8 @@ class ModalDelete extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
             modalOpen: false,
         };
-
         this.cancelClickHandler = this.cancelClickHandler.bind(this);
         this.triggerClickHandler = this.triggerClickHandler.bind(this);
         this.deleteHandler = this.deleteHandler.bind(this);
@@ -24,7 +22,6 @@ class ModalDelete extends React.Component {
         });
     }
     deleteHandler() {
-       
         let id = this.props.idToDelete;  
         let data = {id: id}
         axios.post('/sales/Delete/', data)
@@ -32,10 +29,7 @@ class ModalDelete extends React.Component {
                 .then(() => this.props.fetch())
                 .then(() => this.setState({ modalOpen: false }))
                 .catch(e => console.log(e));
-    }
     render() {
-
-
         return (
             <div>
                 <Modal style={{ position: 'relative', top: '100px', height: '300px' }} open={this.state.modalOpen} trigger={<Button onClick={this.triggerClickHandler} negative icon ><Icon name='trash' /> DELETE</Button>} className="ui modal" size='tiny' >

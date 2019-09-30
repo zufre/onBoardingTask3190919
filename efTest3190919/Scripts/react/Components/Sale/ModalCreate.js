@@ -1,12 +1,12 @@
 ﻿import React from 'react';
 import { Button, Form, Header, Modal, Icon, Dropdown} from 'semantic-ui-react';
 import axios from 'axios';
+
 class ModalCreate extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-
             dateSoldSelected: "",
             storeSelected: null,
             customerSelected: null,
@@ -16,7 +16,6 @@ class ModalCreate extends React.Component {
             products: this.props.products,
             stores: this.props.stores,
             sales: this.props.sales
-
         }
         this.triggerClickHandler = this.triggerClickHandler.bind(this);
         this.cancelClickHandler = this.cancelClickHandler.bind(this);
@@ -25,7 +24,6 @@ class ModalCreate extends React.Component {
         this.handleCustomerChange = this.handleCustomerChange.bind(this);          
         this.handleProductChange = this.handleProductChange.bind(this);          
         this.handleStoreChange = this.handleStoreChange.bind(this);
-          
     }
     triggerClickHandler(e) {
         this.setState(() => {
@@ -55,7 +53,6 @@ class ModalCreate extends React.Component {
             .then(() => this.setState({  modalOpen: false }))
             .catch(e => console.log(e))
     }
-
     cancelClickHandler(e) {
         this.setState(() => {
             return {
@@ -88,7 +85,6 @@ class ModalCreate extends React.Component {
             return { storeSelected: id };
         });
     }
-    
     render() {
         
         const customerOptions = this.props.customers.map(customer => ({
@@ -106,7 +102,6 @@ class ModalCreate extends React.Component {
             text: store.Name,
             value: store.Id,
         }))
-
         return (
             <Modal style={{ position: 'relative', top: '50px', height: '600px' }}
                 open={this.state.modalOpen}
@@ -115,7 +110,6 @@ class ModalCreate extends React.Component {
                 trigger={<Button onClick={this.triggerClickHandler}
                     primary>New Sale</Button>}>
                 <Header>Create Customer</Header>
-
                 <Modal.Content>
                     <Form className="ui form">
                         <div className="field">
@@ -127,7 +121,6 @@ class ModalCreate extends React.Component {
                                 value={this.state.DateSold}
                                 onChange={this.handleDateSoldChange} />
                         </div>
-
                        <div className="field">
                             <label htmlFor="customer">Customer</label>
                             <Dropdown id="customer"
@@ -137,7 +130,6 @@ class ModalCreate extends React.Component {
                                 placeholder='Customer'
                                 options={customerOptions} />
                         </div>
-
                         <div className="field">
                             <label htmlFor="product">Product</label>
                             <Dropdown id="product"
@@ -147,7 +139,6 @@ class ModalCreate extends React.Component {
                                 placeholder='Product'
                                 options={productOptions} />
                         </div>
-
                         <div className="field">
                             <label htmlFor="store">Store</label>
                             <Dropdown id="store"
@@ -162,10 +153,8 @@ class ModalCreate extends React.Component {
                             <Button onClick={this.createClickHandler}  type="submit" color='teal' icon >create  <Icon name='checkmark' /> </Button>
                         </ Modal.Actions>
                     </Form>
-
                 </Modal.Content>
             </Modal>
-
         )
     }
 

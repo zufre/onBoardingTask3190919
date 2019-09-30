@@ -5,21 +5,15 @@ import ModalEdit from './ModalEdit';
 import {Table } from 'semantic-ui-react';
 import axios from 'axios';
 
-
-
 class ProductList extends React.Component {
  constructor(props) {
         super(props);
         this.state = {
              products: []
-           
         };
      this.fetchData = this.fetchData.bind(this);
     }
-   
     componentDidMount() {
-   
-      
         axios.get('/Products/GetProducts')
             .then(res => {
                 const products = res.data;
@@ -37,7 +31,6 @@ class ProductList extends React.Component {
             })
             .catch((e) => console.log(e))
     }
-
     render() {
         return (
             <div>
@@ -51,7 +44,6 @@ class ProductList extends React.Component {
                             <Table.HeaderCell >Action</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-
                     <Table.Body>
                         {this.state.products.map(product =>
                             <Table.Row key={product.Id}>
@@ -63,11 +55,9 @@ class ProductList extends React.Component {
                         )} 
                     </Table.Body>
                 </Table>
-          
             </div>
         )
     }
-
 }
 
 export default ProductList;

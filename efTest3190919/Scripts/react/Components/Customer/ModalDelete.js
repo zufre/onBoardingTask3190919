@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import { Button, Header, Modal, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-
 class ModalDelete extends React.Component {
     constructor(props) {
         super(props);
@@ -9,7 +8,7 @@ class ModalDelete extends React.Component {
             modalOpen: false,
             errorMessage: ""
         };
-        
+
         this.cancelClickHandler = this.cancelClickHandler.bind(this);
         this.triggerClickHandler = this.triggerClickHandler.bind(this);
         this.deleteHandler = this.deleteHandler.bind(this);
@@ -27,7 +26,7 @@ class ModalDelete extends React.Component {
     }
     deleteHandler() {
         let id = this.props.idToDelete;
-        let data = { id: id }
+        let data = { id }
         axios.post('/customers/Delete/', data)
             .then(() => console.log('delete request success'))
             .then(() => this.props.fetch())
@@ -35,8 +34,6 @@ class ModalDelete extends React.Component {
             .catch(() => this.setState({ errorMessage: "Sorry, this entry cannot be deleted, it is probably connected to a Sale entry." }) );
     }
     render() {
-
-
         return (
             <div>
                 <Modal style={{ position: 'relative', top: '100px', height: '300px' }}  open={this.state.modalOpen} trigger={<Button onClick={this.triggerClickHandler} negative icon ><Icon name='trash' /> DELETE</Button>}  className="ui modal" size='tiny' >

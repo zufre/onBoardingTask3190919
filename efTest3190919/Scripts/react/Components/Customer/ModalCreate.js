@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { Button, Form, Header, Modal, Icon } from 'semantic-ui-react';
 import axios from 'axios';
+
 class ModalCreate extends React.Component {
     constructor(props) {
         super(props);
@@ -16,15 +17,12 @@ class ModalCreate extends React.Component {
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
     }
-
     triggerClickHandler()  {
         this.setState(() => {
             return { modalOpen: true };     
         });
     }
-
     cancelClickHandler(e) {
-        
         this.setState(() => {
             return { Name: "", Address: "" , modalOpen: false };
             
@@ -36,14 +34,12 @@ class ModalCreate extends React.Component {
     handleAddressChange(e) {
         this.setState({ Address: e.target.value });
     }
-   
     createClickHandler(e) {
         e.preventDefault;
         if (this.state.Name == "" || this.state.Address == "") {
             this.setState({ errorMessage: "All fields must be filled out" });
             return;
         }
-        
         let data = { "Name": this.state.Name, "Address": this.state.Address }
         axios.post('/Customers/Create', data)
             .then(() => console.log(`post request success`))
@@ -52,12 +48,10 @@ class ModalCreate extends React.Component {
             .then(() => this.setState({ errorMessage: "", modalOpen: false }))
             .catch(e => console.log(e))
     }
-
     render() {
         return (
             <Modal style={{position:'relative', top: '100px', height: '300px'}}   open={this.state.modalOpen} className="ui modal" size='tiny' trigger={<Button onClick={this.triggerClickHandler} primary>New Customer</Button>}>
             <Header>Create Customer</Header>
-             
                 <Modal.Content>
                     <Form className="ui form">
                         <div style={{ color: 'red' }}>{this.state.errorMessage}</div>
@@ -69,18 +63,15 @@ class ModalCreate extends React.Component {
                             <label htmlFor="address">ADDRESS</label>
                             <input size='fluid' type="text" id="address" name="address" value={this.state.Address} onChange={this.handleAddressChange} />
                         </div>
- 
                         <Modal.Actions style={{ float: 'right' }} >
                             <Button  color='black' content="cancel" onClick={this.cancelClickHandler}  />
                             <Button onClick={this.createClickHandler} type="submit"  color='teal' icon >create  <Icon name='checkmark' /> </Button>
                         </ Modal.Actions>
                     </Form>
-
                 </Modal.Content>    
             </Modal>
         )
     }
-   
 }
 
 export default ModalCreate;
