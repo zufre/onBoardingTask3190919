@@ -23,7 +23,7 @@ class ModalCreate extends React.Component {
     }
     cancelClickHandler() {
         this.setState(() => {
-            return { Name: "", Address: "" , modalOpen: false };
+            return { errorMessage: "", Name: "", Address: "" , modalOpen: false };
             
         });
     }
@@ -34,8 +34,13 @@ class ModalCreate extends React.Component {
         this.setState({ Address: e.target.value });
     }
     createClickHandler(e) {
-        if (this.state.Name == "" || this.state.Address == "") {
+        e.preventDefault;
+        if ((this.state.Name == "" || this.state.Address == "")) {
             this.setState({ errorMessage: "All fields must be filled out" });
+            return;
+        }
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name)) {
+            this.setState({ errorMessage: "Name field can only contain Letters" })
             return;
         }
         e.preventDefault;

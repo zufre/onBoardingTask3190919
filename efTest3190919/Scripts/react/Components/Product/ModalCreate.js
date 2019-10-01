@@ -5,6 +5,7 @@ class ModalCreate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+                errorMessagePrice:"",
                 errorMessage: "",
                 modalOpen: false, 
                 Name: '',
@@ -23,7 +24,7 @@ class ModalCreate extends React.Component {
     }
     cancelClickHandler() {
         this.setState(() => {
-            return { Name: "", Price: null , modalOpen: false };
+            return { errorMessagePrice: "", errorMessage: "", Name: "", Price: null , modalOpen: false };
             
         });
     }
@@ -35,16 +36,41 @@ class ModalCreate extends React.Component {
     }
     createClickHandler(e) {
         e.preventDefault;
-        if (this.state.Name == "" || this.state.Price == "") {
-            this.setState({ errorMessage: "All fields must be filled out" });
+        if ((this.state.Price == null || this.state.Name == ""  )) {
+            this.setState({
+                errorMessage: "All fields must be filled out",
+                errorMessagePrice: ""
+            });
             return;
         }
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name) && !(/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
+            this.setState({
+                errorMessage: "Name field can only contain Letters",
+                errorMessagePrice: "Price field contains invalid characters"
+            });
+            return;
+        }
+        if ((/^[A-Za-z\s]+$/g).test(this.state.Name) && !(/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
+            this.setState({
+                errorMessage: "",
+                errorMessagePrice: "Price field contains invalid characters"
+            });
+            return;
+        }
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name) && (/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
+            this.setState({
+                errorMessage: "Name field can only contain Letters",
+                errorMessagePrice: ""
+            })
+           return;
+        }
+       
         let data = { "Name": this.state.Name, "Price": this.state.Price }
         axios.post('/Products/Create', data)
             .then(() => console.log(`post request success`))
             .then(() => this.props.fetch())
             .then(() => this.setState({ Name: "", Price: null }))
-            .then(() => this.setState({ errorMessage: "", modalOpen: false }))
+            .then(() => this.setState({ errorMessagePrice :"", errorMessage: "", modalOpen: false }))
             .catch(e => console.log(e))
     }
     render() {
@@ -58,6 +84,7 @@ class ModalCreate extends React.Component {
                             <label htmlFor="name">NAME</label>
                             <input size='fluid' type="text" id="name" name="name" value={this.state.Name} onChange={this.handleNameChange}/>
                         </div>
+                        <div style={{ color: 'red' }}>{this.state.errorMessagePrice}</div>
                         <div className="field">
                             <label htmlFor="price">PRICE</label>
                             <input size='fluid' type="text" id="price" name="price" value={this.state.Price} onChange={this.handlePriceChange} />

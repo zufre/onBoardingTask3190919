@@ -40,7 +40,7 @@ class ModalDelete extends React.Component {
                         negative icon ><Icon name='trash' /> DELETE</Button>}
                     className="ui modal"
                     size='mini' >
-                    <Header>Delete Customer</Header>
+                    <Header>Delete Sale</Header>
 
                     <Modal.Content>
                         <h1>Are you sure?</h1>

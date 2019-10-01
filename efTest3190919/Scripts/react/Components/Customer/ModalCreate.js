@@ -24,7 +24,7 @@ class ModalCreate extends React.Component {
     }
     cancelClickHandler(e) {
         this.setState(() => {
-            return { Name: "", Address: "" , modalOpen: false };
+            return { errorMessage: "", Name: "", Address: "" , modalOpen: false };
             
         });
     }
@@ -36,10 +36,15 @@ class ModalCreate extends React.Component {
     }
     createClickHandler(e) {
         e.preventDefault;
-        if (this.state.Name == "" || this.state.Address == "") {
+        if ((this.state.Name == "" || this.state.Address == "")) {
             this.setState({ errorMessage: "All fields must be filled out" });
             return;
         }
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name)) {
+            this.setState({ errorMessage: "Name field can only contain Letters" })
+            return;
+        }
+
         let data = { "Name": this.state.Name, "Address": this.state.Address }
         axios.post('/Customers/Create', data)
             .then(() => console.log(`post request success`))

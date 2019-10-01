@@ -25,7 +25,7 @@ class ModalEdit extends React.Component {
     }
     cancelClickHandler() {
         this.setState(() => {
-            return { modalOpen: false };
+            return { errorMessage: "", modalOpen: false };
         });
     }
     triggerClickHandler() {
@@ -35,8 +35,13 @@ class ModalEdit extends React.Component {
     }
     editClickHandler(e) {
         e.preventDefault;
-        if (this.state.Name == "" || this.state.Address == "") {
+        e.preventDefault;
+        if ((this.state.Name == "" || this.state.Address == "")) {
             this.setState({ errorMessage: "All fields must be filled out" });
+            return;
+        }
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name)) {
+            this.setState({ errorMessage: "Name field can only contain Letters" })
             return;
         }
         let data = { Id: this.state.id, Name: this.state.Name, Address: this.state.Address }

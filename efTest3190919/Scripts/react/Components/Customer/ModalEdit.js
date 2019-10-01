@@ -25,7 +25,7 @@ class ModalEdit extends React.Component {
     }
     cancelClickHandler() {
         this.setState(() => {
-            return { modalOpen: false };
+            return { errorMessage: "", modalOpen: false };
         });
     }
     triggerClickHandler() {
@@ -35,21 +35,26 @@ class ModalEdit extends React.Component {
     }
     editClickHandler(e) {
         e.preventDefault;
-        if (this.state.Name == "" || this.state.Address == "") {
+        if ((this.state.Name == "" || this.state.Address == "")) {
             this.setState({ errorMessage: "All fields must be filled out" });
             return;
         }
-        let data = {
-            Id: this.state.Id,
-            Name: this.state.Name,
-            Address: this.state.Address
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name)) {
+            this.setState({ errorMessage: "Name field can only contain Letters" })
+            return;
         }
-        axios.post('/Customers/Edit/', data)
-            .then(() => console.log(`put request success`))
-            .then(() => this.props.fetch())
-            .then(() => this.setState({ errorMessage: "", modalOpen: false }))
-            .catch(e => console.log(e));
-    }
+            let data = {
+                Id: this.state.Id,
+                Name: this.state.Name,
+                Address: this.state.Address
+            }
+            axios.post('/Customers/Edit/', data)
+                .then(() => console.log(`put request success`))
+                .then(() => this.props.fetch())
+                .then(() => this.setState({ errorMessage: "", modalOpen: false }))
+                .catch(e => console.log(e));
+        }
+    
     render() {
         return (
             <div>

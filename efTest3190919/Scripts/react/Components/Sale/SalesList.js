@@ -53,10 +53,10 @@ class SalesList extends React.Component {
                 .catch((e) => console.log(e))
 
         }
-  transformToDate(miliSeconds) {
-    var d = new Date(parseInt(miliSeconds.toString().slice(6, 19)));
-    return d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
-}
+    transformToDate(miliSeconds) {
+    var d = new Date(parseInt(miliSeconds.toString().slice(6, 20)));
+      return ("0" + d.getDate()).slice(-2) + "/" + ("0" + (d.getMonth() + 1)).slice(-2) + "/" + d.getFullYear();
+    }
     render() {
         let stateContentCheck = (this.state.customers.length != 0 &&
             this.state.sales.length != 0 &&

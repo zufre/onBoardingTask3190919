@@ -5,8 +5,7 @@ class ModalEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            errorMes:"",
-            idSelected:this.props.id,
+            idSelected: this.props.id,
             dateSoldSelected: this.props.date,
             storeSelected: this.props.store,
             customerSelected: this.props.customer,
@@ -15,6 +14,8 @@ class ModalEdit extends React.Component {
             customers: this.props.customers,
             products: this.props.products,
             stores: this.props.stores
+
+
         }
         this.triggerClickHandler = this.triggerClickHandler.bind(this);
         this.cancelClickHandler = this.cancelClickHandler.bind(this);
@@ -23,21 +24,23 @@ class ModalEdit extends React.Component {
         this.handleCustomerChange = this.handleCustomerChange.bind(this);
         this.handleProductChange = this.handleProductChange.bind(this);
         this.handleStoreChange = this.handleStoreChange.bind(this);
-        this.transformToDate = this.transformToDate.bind(this);
-        this.dateTester = this.dateTester.bind(this);
 
     }
     cancelClickHandler() {
-        
+
         this.setState(() => {
             return {
-                errorMes:"",
+                dateSoldSelected: "",
+                customerSelected: null,
+                productSelected: null,
+                storeSelected: null,
                 modalOpen: false,
                 idSelected: null,
                 customers: [],
                 products: [],
                 stores: []
             };
+
         });
         this.props.fetch();
     }
@@ -52,10 +55,7 @@ class ModalEdit extends React.Component {
     }
     editClickHandler(e) {
         e.preventDefault;
-        if (!this.dateTester(this.state.dateSoldSelected)) {
-            this.setState({ errorMes: "Please enter a valid Date(DD/MM/YYYY)" });
-            return;
-        }
+
         let data = {
             Id: this.state.idSelected,
             DateSold: this.state.dateSoldSelected,
@@ -67,7 +67,8 @@ class ModalEdit extends React.Component {
 
             .then(() => console.log(`put request success`))
             .then(() => this.props.fetch())
-            .then(() => this.setState({ errorMes: "", modalOpen: false }))
+            
+            .then(() => this.setState({ modalOpen: false }))
             .catch(e => console.log(e));
     }
     handleCustomerChange(e, data) {
@@ -91,14 +92,7 @@ class ModalEdit extends React.Component {
             return { storeSelected: id };
         });
     }
-    transformToDate(miliSeconds) {
-        var d = new Date(parseInt(miliSeconds.toString().slice(6, 19)));
-        return (d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear()).toDate;
-    }
-    dateTester(date) {
-        var patt = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
-        return patt.test(date);
-}
+
     render() {
         const customerOptions = this.props.customers.map(customer => ({
             key: customer.Id,
@@ -124,19 +118,19 @@ class ModalEdit extends React.Component {
                     size='mini' >
                     <Header>Edit Sale</Header>
                     <Modal.Content>
-                        <Form  className="ui form">
-                        <div className="field">
-                            <label htmlFor="dateSold">Date sold</label>
-                                <input fluid
+                        <Form className="ui form">
+                            <div className="field">
+                                <label htmlFor="dateSold">Date sold</label>
+                                <input size='fluid'
                                     type="text"
                                     id="dateSold"
                                     name="dateSold"
+
                                     value={this.state.dateSoldSelected}
                                     onChange={this.handleDateSoldChange} />
-                                <div style={{ color: 'red' }}>{this.state.errorMes}</div>
-                        </div>
-                        <div className="field">
-                            <label htmlFor="customer">Customer</label>
+                            </div>
+                            <div className="field">
+                                <label htmlFor="customer">Customer</label>
                                 <Dropdown id="customer"
                                     value={this.state.customerSelected}
                                     onChange={this.handleCustomerChange}
@@ -144,9 +138,9 @@ class ModalEdit extends React.Component {
                                     selection
                                     placeholder='Customer'
                                     options={customerOptions} />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="product">Product</label>
+                            </div>
+                            <div className="field">
+                                <label htmlFor="product">Product</label>
                                 <Dropdown id="product"
                                     value={this.state.productSelected}
                                     onChange={this.handleProductChange}
@@ -154,9 +148,9 @@ class ModalEdit extends React.Component {
                                     selection
                                     placeholder='Product'
                                     options={productOptions} />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="store">Store</label>
+                            </div>
+                            <div className="field">
+                                <label htmlFor="store">Store</label>
                                 <Dropdown id="store"
                                     value={this.state.storeSelected}
                                     onChange={this.handleStoreChange}
@@ -164,7 +158,7 @@ class ModalEdit extends React.Component {
                                     selection
                                     placeholder='Store'
                                     options={storeOptions} />
-                        </div>
+                            </div>
                             <Modal.Actions style={{ float: 'right' }} >
                                 <Button color='black' content="cancel" onClick={this.cancelClickHandler} />
                                 <Button onClick={this.editClickHandler} positive type="submit" icon >edit  <Icon name='checkmark' /> </Button>

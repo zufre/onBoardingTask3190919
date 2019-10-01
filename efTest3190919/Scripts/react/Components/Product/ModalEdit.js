@@ -5,6 +5,7 @@ class ModalEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            errorMessagePrice: "",
             errorMessage: "",
             modalOpen: false, 
             Id: this.props.idToEdit,
@@ -25,7 +26,7 @@ class ModalEdit extends React.Component {
     }
     cancelClickHandler() {
         this.setState(() => {
-            return { modalOpen: false };
+            return { errorMessagePrice: "", errorMessage: "", modalOpen: false };
         });
     }
     triggerClickHandler() {
@@ -34,16 +35,41 @@ class ModalEdit extends React.Component {
         });
     }
     editClickHandler(e) {
+        
         e.preventDefault;
-        if (this.state.Name == "" || this.state.Price == "") {
-            this.setState({ errorMessage: "All fields must be filled out" });
+        if ((this.state.Price == null || this.state.Name == "")) {
+            this.setState({
+                errorMessage: "All fields must be filled out",
+                errorMessagePrice: ""
+            });
+            return;
+        }
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name) && !(/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
+            this.setState({
+                errorMessage: "Name field can only contain Letters",
+                errorMessagePrice: "Price field contains invalid characters"
+            });
+            return;
+        }
+        if ((/^[A-Za-z\s]+$/g).test(this.state.Name) && !(/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
+            this.setState({
+                errorMessage: "",
+                errorMessagePrice: "Price field contains invalid characters"
+            });
+            return;
+        }
+        if (!(/^[A-Za-z\s]+$/g).test(this.state.Name) && (/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
+            this.setState({
+                errorMessage: "Name field can only contain Letters",
+                errorMessagePrice: ""
+            })
             return;
         }
         let data = { Id: this.state.Id, Name: this.state.Name, Price: this.state.Price }
         axios.post('/Products/Edit/', data)
             .then(() => console.log(`put request success`))
             .then(() => this.props.fetch())
-            .then(() => this.setState({ errorMessage: "",  modalOpen: false }))
+            .then(() => this.setState({ errorMessagePrice: "", errorMessage: "",  modalOpen: false }))
             .catch(e => console.log(e));   
     }
     render() {
@@ -64,7 +90,8 @@ class ModalEdit extends React.Component {
                             <label htmlFor="name">NAME</label>
                                 <input type="text" id="name" name="name" value={this.state.Name} onChange={this.handleNameChange} />
                         </div>
-                        <div className="field">
+                            <div className="field">
+                            <div style={{ color: 'red' }}>{this.state.errorMessagePrice}</div>
                             <label htmlFor="price">PRICE</label>
                             <input type="text" id="price" name="price" value={this.state.Price} onChange={this.handleAddressChange} />
                         </div>

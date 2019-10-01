@@ -60,7 +60,8 @@ class ModalCreate extends React.Component {
                 customerSelected: null,
                 productSelected: null,
                 storeSelected: null,
-                modalOpen: false
+                modalOpen: false,
+                
             };
         });
     }
