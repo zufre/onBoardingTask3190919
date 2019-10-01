@@ -5,6 +5,7 @@ class ModalEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            errorMessage:"",
             idSelected: this.props.id,
             dateSoldSelected: this.props.date,
             storeSelected: this.props.store,
@@ -30,6 +31,7 @@ class ModalEdit extends React.Component {
 
         this.setState(() => {
             return {
+                errorMessage:"",
                 dateSoldSelected: "",
                 customerSelected: null,
                 productSelected: null,
@@ -55,7 +57,10 @@ class ModalEdit extends React.Component {
     }
     editClickHandler(e) {
         e.preventDefault;
-
+        if (!(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/g).test(this.state.dateSoldSelected)) {
+            this.setState({ errorMessage: "Please insert a valid Date DD/MM/YYY" });
+            return;
+        }
         let data = {
             Id: this.state.idSelected,
             DateSold: this.state.dateSoldSelected,
@@ -68,7 +73,7 @@ class ModalEdit extends React.Component {
             .then(() => console.log(`put request success`))
             .then(() => this.props.fetch())
             
-            .then(() => this.setState({ modalOpen: false }))
+            .then(() => this.setState({ errorMessage:"",modalOpen: false }))
             .catch(e => console.log(e));
     }
     handleCustomerChange(e, data) {
@@ -120,6 +125,7 @@ class ModalEdit extends React.Component {
                     <Modal.Content>
                         <Form className="ui form">
                             <div className="field">
+                                <div style={{ color: 'red' }}>{this.state.errorMessage}</div>
                                 <label htmlFor="dateSold">Date sold</label>
                                 <input size='fluid'
                                     type="text"
