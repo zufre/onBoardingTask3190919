@@ -47,14 +47,14 @@ class ModalEdit extends React.Component {
         if (!(/^[A-Za-z\s]+$/g).test(this.state.Name) && !(/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
             this.setState({
                 errorMessage: "Name field can only contain Letters",
-                errorMessagePrice: "Price field contains invalid characters"
+                errorMessagePrice: "Price format is x.xx"
             });
             return;
         }
         if ((/^[A-Za-z\s]+$/g).test(this.state.Name) && !(/\d+\.*\d{2}$/g).test((this.state.Price).toString())) {
             this.setState({
                 errorMessage: "",
-                errorMessagePrice: "Price field contains invalid characters"
+                errorMessagePrice: "Price format is x.xx"
             });
             return;
         }
