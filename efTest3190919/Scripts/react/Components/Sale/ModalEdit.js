@@ -25,7 +25,7 @@ class ModalEdit extends React.Component {
         this.handleCustomerChange = this.handleCustomerChange.bind(this);
         this.handleProductChange = this.handleProductChange.bind(this);
         this.handleStoreChange = this.handleStoreChange.bind(this);
-
+        this.adjust = this.adjust.bind(this);
     }
     cancelClickHandler() {
 
@@ -55,6 +55,7 @@ class ModalEdit extends React.Component {
             return { modalOpen: true };
         });
     }
+
     editClickHandler(e) {
         e.preventDefault;
         if (!(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/g).test(this.state.dateSoldSelected)) {
@@ -63,7 +64,7 @@ class ModalEdit extends React.Component {
         }
         let data = {
             Id: this.state.idSelected,
-            DateSold: this.state.dateSoldSelected,
+            DateSold: this.adjust(this.state.dateSoldSelected),
             CustomerId: this.state.customerSelected,
             ProductId: this.state.productSelected,
             StoreId: this.state.storeSelected
@@ -97,7 +98,13 @@ class ModalEdit extends React.Component {
             return { storeSelected: id };
         });
     }
-
+   adjust(date) {
+    var day = date.slice(0, 2);
+    var month = date.slice(3, 5);
+    var year = date.slice(6);
+    var newstring = month + "/" + day + "/" + year;
+    return newstring;
+}
     render() {
         const customerOptions = this.props.customers.map(customer => ({
             key: customer.Id,
