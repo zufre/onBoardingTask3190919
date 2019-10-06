@@ -104,6 +104,7 @@ class ModalEdit extends React.Component {
     var newstring = month + "/" + day + "/" + year;
     return newstring;
 }
+
     render() {
         const customerOptions = this.props.customers.map(customer => ({
             key: customer.Id,
